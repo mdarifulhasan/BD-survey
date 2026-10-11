@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arif Digital Survey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --font-bn: 'Noto Sans Bengali', sans-serif;
+            --font-en: 'Poppins', sans-serif;
+            --primary-color: #0369a1;
+            --primary-dark: #075985;
+            --primary-light: #0ea5e9;
+            --secondary-color: #f0f9ff;
+            --accent-gradient: linear-gradient(135deg, #0369a1 0%, #0ea5e9 50%, #06b6d4 100%);
+            --card-shadow: 0 20px 60px rgba(3, 105, 161, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: var(--font-bn);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%);
+            min-height: 100vh;
+        }
+        
+        /* Animated Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230ea5e9' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Page Transitions */
+        .page { display: none; }
+        .page.active { 
+            display: block; 
+            animation: pageSlideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes pageSlideIn { 
+            from { opacity: 0; transform: translateY(20px) scale(0.98); } 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.5); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Side Menu Styles */
+        #sideMenu {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(-100%);
+            background: linear-gradient(180deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
+        }
+        #sideMenu.open {
+            transform: translateX(0);
+        }
+        
+        /* Professional Card Styles */
+        .pro-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
+        }
+        
+        /* Card Header Style */
+        .card-header {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.5rem 2rem;
+            margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+            border-radius: 1.5rem 1.5rem 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+        
+        /* Modern Input Styles */
+        .modern-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        
+        .modern-input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+            outline: none;
+            transform: translateY(-2px);
+        }
+        
+        .modern-input:hover:not(:focus) {
+            border-color: #cbd5e1;
+        }
+        
+        /* Modern Select Styles */
+        .modern-select {
+            width: 100%;
+            padding: 1rem 2.5rem 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230369a1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") no-repeat right 1rem center;
+            background-size: 1.25rem;
+            appearance: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        
+        .modern-select:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+            outline: none;
+        }
+        
+        /* Modern Button Styles */
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            font-weight: 600;
+            padding: 0.875rem 2rem;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(3, 105, 161, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #475569 0%, #334155 100%);
+            color: white;
+            font-weight: 600;
+            padding: 0.875rem 2rem;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(51, 65, 85, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(51, 65, 85, 0.4);
+        }
+        
+        /* Result Box Styles */
+        .result-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #bae6fd;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-box.green {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #86efac;
+        }
+        
+        .result-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
+        }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0ea5e9, #0369a1); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #0369a1, #075985); }
+
+        /* Copy Button */
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid #e0f2fe;
+            border-radius: 0.5rem;
+            width: 36px;
+            height: 36px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .copy-btn .fa-check { display: none; color: #10b981; }
+
+        /* Tab Styles */
+        .tab-btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+            background: white;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        .tab-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: pageSlideIn 0.4s ease; }
+        
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 100;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        #toast::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #10b981;
+        }
+        
+        #toast.show {
+            bottom: 30px;
+        }
+        
+        /* Shake Animation */
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+        .shake { animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both; }
+
+        /* Menu Item Styles */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-item i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        /* Calculator Styles */
+        .calc-btn {
+            padding: 1.25rem;
+            font-size: 1.5rem;
+            border-radius: 1rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            color: #1f2937;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .calc-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .calc-btn.operator {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .calc-btn.clear {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .calc-btn.equals {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* Editor Toolbar */
+        .editor-toolbar button {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+        }
+        
+        .editor-toolbar button:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        /* Note History Item */
+        .note-item {
+            padding: 1rem;
+            background: white;
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .note-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+            transform: translateX(5px);
+        }
+        
+        /* FAQ Accordion */
+        .faq-item {
+            background: white;
+            border-radius: 1rem;
+            border: 2px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.1);
+        }
+        
+        .faq-question {
+            padding: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .faq-question::before {
+            content: '\f059';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary-light);
+        }
+        
+        .faq-answer {
+            padding: 0 1.25rem 1.25rem;
+            color: #64748b;
+            line-height: 1.7;
+        }
+        
+        /* Info Card */
+        .info-card {
+            background: white;
+            border-radius: 1rem;
+            border: 2px solid #e2e8f0;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gradient);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);
+        }
+        
+        /* Formula Card */
+        .formula-card {
+            background: white;
+            border-radius: 1rem;
+            border: 2px solid #e2e8f0;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .formula-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);
+            border-color: var(--primary-light);
+        }
+        
+        .formula-card .icon-wrapper {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1rem;
+            background: var(--accent-gradient);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+        
+        .formula-card .icon-wrapper i {
+            font-size: 1.75rem;
+            color: white;
+        }
+        
+        /* Swap Button */
+        .swap-btn {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+        }
+        
+        .swap-btn:hover {
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(3, 105, 161, 0.4);
+        }
+        
+        /* Language Toggle */
+        .lang-toggle {
+            background: white;
+            border-radius: 2rem;
+            padding: 0.25rem;
+            display: flex;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border: 2px solid #e2e8f0;
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #64748b;
+        }
+        
+        .lang-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 2px 10px rgba(3, 105, 161, 0.3);
+        }
+        
+        /* Lock Screen Enhancement */
+        .lock-bg {
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 30%, #0369a1 60%, #0284c7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lock-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: floatBg 20s linear infinite;
+        }
+        
+        @keyframes floatBg {
+            from { transform: translate(0, 0); }
+            to { transform: translate(30px, 30px); }
+        }
+        
+        .lock-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .lock-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--accent-gradient);
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(3, 105, 161, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Footer Styles */
+        .app-footer {
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+            color: white;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 2rem 2rem 0 0;
+        }
+        
+        /* Print Styles */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            body, html { 
+                background-color: white !important;
+                margin: 0;
+                padding: 0;
+            }
+            
+            body * { 
+                visibility: hidden; 
+            }
+            
+            #print-area, #print-area * { 
+                visibility: visible; 
+            }
+            
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: auto;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .pro-card {
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+            
+            .no-print { 
+                display: none !important; 
+            }
+            
+            /* Print Header */
+            .print-header {
+                display: block !important;
+                background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: white !important;
+                padding: 25px 30px !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .print-header * {
+                color: white !important;
+            }
+            
+            /* Print Footer */
+            .print-footer {
+                display: block !important;
+                background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: white !important;
+                padding: 20px 30px !important;
+                margin-top: 0 !important;
+            }
+            
+            .print-footer * {
+                color: white !important;
+            }
+            
+            /* Print Content Area */
+            .print-content {
+                padding: 30px !important;
+                background: white !important;
+            }
+            
+            .print-result-box {
+                border: 2px solid #0369a1 !important;
+                border-radius: 12px !important;
+                padding: 20px !important;
+                margin: 10px 0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .print-result-box.blue-bg {
+                background: #f0f9ff !important;
+            }
+            
+            .print-result-box.green-bg {
+                background: #f0fdf4 !important;
+            }
+            
+            .print-watermark {
+                display: block !important;
+                position: fixed;
+                bottom: 50%;
+                left: 50%;
+                transform: translate(-50%, 50%) rotate(-45deg);
+                font-size: 80px;
+                color: rgba(3, 105, 161, 0.03) !important;
+                font-weight: bold;
+                pointer-events: none;
+                white-space: nowrap;
+                z-index: 0;
+            }
+            
+            .card-header {
+                display: none !important;
+            }
+        }
+        
+        /* Hide print elements on screen */
+        .print-header,
+        .print-footer,
+        .print-watermark {
+            display: none;
+        }
+        
+        /* Floating Decorative Elements */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <div class="bg-pattern"></div>
+
+    <!-- Lock Screen -->
+    <div id="lockScreen" class="fixed inset-0 lock-bg z-[100] flex items-center justify-center p-4">
+        <!-- Floating Shapes -->
+        <div class="floating-shape" style="width: 300px; height: 300px; top: -100px; left: -100px; opacity: 0.1;"></div>
+        <div class="floating-shape" style="width: 200px; height: 200px; bottom: -50px; right: -50px; opacity: 0.08;"></div>
+        <div class="floating-shape" style="width: 150px; height: 150px; top: 20%; right: 10%; opacity: 0.06;"></div>
+        
+        <div class="w-full max-w-md lock-card p-8 text-center transform transition-all" style="animation: lockEnter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;">
+            <div class="lock-logo">
+                <i class="fas fa-map-marked-alt text-4xl text-white"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2" style="font-family: var(--font-en);">Arif Digital Survey</h2>
+            <p class="text-gray-500 mb-8">আপনার পাসওয়ার্ড দিয়ে লগইন করুন</p>
+            
+            <div class="relative mb-6">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-sky-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-lock text-sky-600"></i>
+                </div>
+                <input type="password" id="passwordInput" class="w-full p-4 pl-16 border-2 border-gray-200 rounded-xl text-center text-lg tracking-widest focus:ring-4 focus:ring-sky-100 focus:border-sky-400 transition" placeholder="••••••">
+            </div>
+            
+            <button id="unlockButton" class="w-full btn-primary py-4 text-lg flex items-center justify-center gap-3">
+                <span>প্রবেশ করুন</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            
+            <p id="errorMessage" class="text-red-500 mt-4 h-6 font-medium flex items-center justify-center gap-2"></p>
+            
+            <div class="mt-10 pt-6 border-t border-gray-200">
+                <div class="flex items-center justify-center gap-6 text-sm text-gray-400">
+                    <a href="tel:01886868239" class="flex items-center gap-2 hover:text-sky-600 transition">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>01886868239</span>
+                    </a>
+                    <span class="text-gray-300">|</span>
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secured</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes lockEnter {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+
+    <!-- Main App Wrapper -->
+    <div id="mainApp" class="hidden">
+        <!-- Slide-in Menu -->
+        <div id="menuOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden transition-opacity"></div>
+        <div id="sideMenu" class="fixed top-0 left-0 h-full w-80 z-50 custom-scrollbar overflow-y-auto">
+            <div class="p-6 border-b border-white/10">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-map-marked-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Arif Digital</h2>
+                            <p class="text-xs text-white/60">Survey Solution</p>
+                        </div>
+                    </div>
+                    <button id="closeMenuBtn" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:bg-white/20 hover:text-white transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <nav class="p-4">
+                <p class="text-xs uppercase text-white/40 font-bold mb-3 px-3">Main Menu</p>
+                <a href="#" class="menu-item" data-target="converterPage">
+                    <i class="fas fa-arrows-left-right-to-line text-sky-300"></i>
+                    <span data-lang-key="menu_converter">কনভার্টার</span>
+                </a>
+                <a href="#" class="menu-item" data-target="landCalculatorPage">
+                    <i class="fas fa-ruler-combined text-purple-300"></i>
+                    <span data-lang-key="menu_land_calculator">ভূমি ক্যালকুলেটর</span>
+                </a>
+                <a href="#" class="menu-item" data-target="calculatorPage">
+                    <i class="fas fa-calculator text-orange-300"></i>
+                    <span data-lang-key="menu_calculator">ক্যালকুলেটর</span>
+                </a>
+                <a href="#" class="menu-item" data-target="notebookPage">
+                    <i class="fas fa-book text-green-300"></i>
+                    <span data-lang-key="menu_notebook">নোটপ্যাড</span>
+                </a>
+                
+                <p class="text-xs uppercase text-white/40 font-bold mb-3 mt-6 px-3">Resources</p>
+                <a href="#" class="menu-item" data-target="formulaPage">
+                    <i class="fas fa-draw-polygon text-indigo-300"></i>
+                    <span data-lang-key="menu_formula">জ্যামিতিক সূত্র</span>
+                </a>
+                <a href="#" class="menu-item" data-target="faqPage">
+                    <i class="fas fa-question-circle text-amber-300"></i>
+                    <span data-lang-key="menu_faq">সাধারণ প্রশ্নোত্তর</span>
+                </a>
+                <a href="#" class="menu-item" data-target="infoPage">
+                    <i class="fas fa-info-circle text-teal-300"></i>
+                    <span data-lang-key="menu_info">সার্ভেয়ারের তথ্য</span>
+                </a>
+            </nav>
+            
+            <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10 bg-black/20">
+                <div class="text-center text-white/60 text-sm">
+                    <p class="font-medium text-white/80">Developed by Arif</p>
+                    <p class="text-xs mt-1">© 2024 All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="relative min-h-screen pb-8">
+            <!-- Header -->
+            <header class="sticky top-0 bg-white/80 backdrop-blur-xl z-30 shadow-lg shadow-sky-900/5 no-print">
+                <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                    <button id="openMenuBtn" class="w-12 h-12 bg-gradient-to-br from-sky-50 to-sky-100 rounded-xl flex items-center justify-center text-sky-700 hover:from-sky-100 hover:to-sky-200 transition shadow-sm">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="hidden sm:flex items-center gap-2 px-4 py-2 bg-sky-50 rounded-xl">
+                            <i class="fas fa-map-marked-alt text-sky-600"></i>
+                            <span class="font-bold text-sky-800" style="font-family: var(--font-en);">Arif Survey</span>
+                        </div>
+                        
+                        <div class="lang-toggle">
+                            <button id="langBn" class="lang-btn">বাংলা</button>
+                            <button id="langEn" class="lang-btn">Eng</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page: Converter -->
+            <div id="converterPage" class="page p-4 max-w-5xl mx-auto">
+                <div id="print-area">
+                    <!-- Professional Print Header -->
+                    <div class="print-header" style="display: none;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-map-marked-alt" style="font-size: 28px;"></i>
+                                </div>
+                                <div>
+                                    <h1 style="font-size: 24px; font-weight: bold; margin: 0; font-family: 'Poppins', sans-serif;">Arif Digital Survey</h1>
+                                    <p style="font-size: 12px; opacity: 0.8; margin: 0;">Professional Land Measurement Solution</p>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 12px; margin: 0;"><i class="fas fa-user" style="margin-right: 8px;"></i>Arif Hasan</p>
+                                <p style="font-size: 12px; margin: 4px 0 0 0;"><i class="fas fa-phone-alt" style="margin-right: 8px;"></i>01886868239</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Print Watermark -->
+                    <div class="print-watermark" style="display: none;">ARIF DIGITAL SURVEY</div>
+                    
+                    <div class="pro-card p-6 md:p-8 space-y-6">
+                        <div class="card-header">
+                            <div class="flex items-center justify-center gap-3">
+                                <i class="fas fa-arrows-left-right-to-line text-2xl"></i>
+                                <h1 class="text-2xl md:text-3xl font-bold relative z-10" data-lang-key="converter_title">ভূমি পরিমাপ কনভার্টার</h1>
+                            </div>
+                        </div>
+                        
+                        <!-- Print Title (visible only in print) -->
+                        <div class="print-content" style="display: none;">
+                            <div style="text-align: center; padding: 20px 0; border-bottom: 2px solid #e0f2fe; margin-bottom: 20px;">
+                                <h2 style="font-size: 22px; font-weight: bold; color: #0369a1; margin: 0;">
+                                    <i class="fas fa-arrows-left-right-to-line" style="margin-right: 10px;"></i>
+                                    ভূমি পরিমাপ কনভার্টার ফলাফল
+                                </h2>
+                                <p style="font-size: 12px; color: #64748b; margin-top: 8px;">Land Measurement Conversion Result</p>
+                                <p style="font-size: 11px; color: #94a3b8; margin-top: 5px;" id="printDateTime"></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Converter UI -->
+                        <div class="grid grid-cols-1 md:grid-cols-11 gap-6 items-end pt-2">
+                            <div class="md:col-span-5">
+                                <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="from_unit">From</label>
+                                <div class="space-y-3">
+                                    <input type="number" id="fromValue" value="1" class="modern-input text-lg font-semibold">
+                                    <select id="fromUnit" class="modern-select"></select>
+                                </div>
+                            </div>
+                            <div class="md:col-span-1 flex items-center justify-center py-4">
+                                <button id="swapButton" class="swap-btn no-print">
+                                    <i class="fas fa-exchange-alt text-lg"></i>
+                                </button>
+                            </div>
+                            <div class="md:col-span-5">
+                                <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="to_unit">To</label>
+                                <div class="space-y-3">
+                                    <div class="relative">
+                                        <input type="text" id="toValue" readonly class="modern-input text-lg font-bold text-sky-700 bg-sky-50 pr-14">
+                                        <button class="copy-btn no-print" id="copyToValue" title="Copy Value">
+                                            <i class="fas fa-copy"></i>
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                    <select id="toUnit" class="modern-select"></select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Surveyor's Detailed Result -->
+                        <div id="surveyorResult" class="pt-6 border-t-2 border-dashed border-sky-200 hidden">
+                            <h3 class="text-xl font-bold text-center text-sky-900 mb-6 flex items-center justify-center gap-2">
+                                <i class="fas fa-clipboard-list text-sky-500"></i>
+                                <span data-lang-key="surveyor_title">সার্ভেয়ারের বিস্তারিত ফলাফল</span>
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="result-box print-result-box blue-bg relative">
+                                    <button class="copy-btn no-print" id="copyBigha" title="Copy Bigha Breakdown">
+                                        <i class="fas fa-copy"></i>
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <h4 class="font-bold text-sky-800 mb-4 text-center flex items-center justify-center gap-2">
+                                        <i class="fas fa-ruler text-sky-500"></i>
+                                        <span data-lang-key="bigha_katha_system">বিঘা-কাঠা পদ্ধতি</span>
+                                    </h4>
+                                    <div id="bighaKathaBreakdown" class="text-center text-lg space-y-2"></div>
+                                </div>
+                                <div class="result-box green print-result-box green-bg relative">
+                                    <button class="copy-btn no-print" id="copyKani" title="Copy Kani Breakdown">
+                                        <i class="fas fa-copy"></i>
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <h4 class="font-bold text-green-800 mb-4 text-center flex items-center justify-center gap-2">
+                                        <i class="fas fa-ruler-combined text-green-500"></i>
+                                        <span data-lang-key="kani_gonda_system">কানি-গন্ডা পদ্ধতি</span>
+                                    </h4>
+                                    <div id="kaniGondaBreakdown" class="text-center text-lg space-y-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Print Footer -->
+                    <div class="print-footer" style="display: none;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                            <div>
+                                <p style="font-size: 14px; font-weight: bold; margin: 0;">Created by Arif Hasan</p>
+                                <p style="font-size: 11px; opacity: 0.8; margin: 3px 0 0 0;">Professional Land Surveyor</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <p style="font-size: 11px; margin: 0;"><i class="fas fa-envelope" style="margin-right: 6px;"></i>mdarifulhasanctg@gmail.com</p>
+                                <p style="font-size: 11px; margin: 3px 0 0 0;"><i class="fas fa-phone-alt" style="margin-right: 6px;"></i>01886868239</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 10px; opacity: 0.7; margin: 0;">© 2024 Arif Digital Survey</p>
+                                <p style="font-size: 10px; opacity: 0.7; margin: 3px 0 0 0;">All Rights Reserved</p>
+                            </div>
+                        </div>
+                        <div style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 15px; padding-top: 10px; text-align: center;">
+                            <p style="font-size: 9px; opacity: 0.6; margin: 0;">This document is computer generated. For verification, please contact the surveyor.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="mt-6 flex justify-center no-print">
+                    <button id="printBtn" class="btn-secondary flex items-center gap-3">
+                        <i class="fas fa-print"></i>
+                        <span data-lang-key="print_results">ফলাফল প্রিন্ট করুন</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page: Land Calculator -->
+            <div id="landCalculatorPage" class="page p-4 max-w-5xl mx-auto">
+                <div class="pro-card p-6 md:p-8">
+                    <div class="card-header">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-ruler-combined text-2xl"></i>
+                            <h1 class="text-2xl md:text-3xl font-bold relative z-10" data-lang-key="land_calculator_title">ভূমি ক্যালকুলেটর</h1>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabs -->
+                    <div id="landShapeTabs" class="flex flex-wrap justify-center gap-3 mb-8">
+                        <button class="tab-btn active" data-shape="rectangle">
+                            <i class="fas fa-vector-square"></i>
+                            <span data-lang-key="shape_rectangle">আয়তক্ষেত্র</span>
+                        </button>
+                        <button class="tab-btn" data-shape="triangle">
+                            <i class="fas fa-play fa-rotate-270"></i>
+                            <span data-lang-key="shape_triangle">ত্রিভুজ</span>
+                        </button>
+                        <button class="tab-btn" data-shape="circle">
+                            <i class="far fa-circle"></i>
+                            <span data-lang-key="shape_circle">বৃত্ত/পুকুর</span>
+                        </button>
+                        <button class="tab-btn" data-shape="trapezoid">
+                            <i class="fas fa-shapes"></i>
+                            <span data-lang-key="shape_trapezoid">ট্রাপিজিয়াম</span>
+                        </button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="space-y-4">
+                        <!-- Rectangle -->
+                        <div id="content-rectangle" class="tab-content active">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="length_ft">দৈর্ঘ্য (ফুট)</label>
+                                    <input type="number" id="rectLength" class="modern-input" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="width_ft">প্রস্থ (ফুট)</label>
+                                    <input type="number" id="rectWidth" class="modern-input" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Triangle -->
+                        <div id="content-triangle" class="tab-content">
+                            <p class="text-sm text-center text-gray-500 mb-6 bg-amber-50 p-3 rounded-lg border border-amber-200" data-lang-key="triangle_desc">
+                                <i class="fas fa-info-circle text-amber-500 mr-2"></i>
+                                হেরনের সূত্র অনুযায়ী ৩ বাহুর মাপ দিন
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="side_a_ft">১ম বাহু (ফুট)</label>
+                                    <input type="number" id="triA" class="modern-input" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="side_b_ft">২য় বাহু (ফুট)</label>
+                                    <input type="number" id="triB" class="modern-input" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="side_c_ft">৩য় বাহু (ফুট)</label>
+                                    <input type="number" id="triC" class="modern-input" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Circle -->
+                        <div id="content-circle" class="tab-content">
+                            <div class="max-w-md mx-auto">
+                                <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="radius_ft">ব্যাসার্ধ (ফুট)</label>
+                                <input type="number" id="circleRadius" class="modern-input" placeholder="0">
+                            </div>
+                        </div>
+                        <!-- Trapezoid -->
+                        <div id="content-trapezoid" class="tab-content">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="parallel_a_ft">সমান্তরাল বাহু ১ (ফুট)</label>
+                                    <input type="number" id="trapA" class="modern-input" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="parallel_b_ft">সমান্তরাল বাহু ২ (ফুট)</label>
+                                    <input type="number" id="trapB" class="modern-input" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide" data-lang-key="height_ft">উচ্চতা (ফুট)</label>
+                                    <input type="number" id="trapH" class="modern-input" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculation Button -->
+                    <div class="mt-8">
+                        <button id="calculateAreaBtn" class="w-full btn-primary py-4 text-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-calculator"></i>
+                            <span data-lang-key="calculate_area">ক্ষেত্রফল হিসাব করুন</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Result Display -->
+                    <div id="landCalcResult" class="pt-8 border-t-2 border-dashed border-sky-200 mt-8 hidden">
+                        <h3 class="text-xl font-bold text-center text-sky-900 mb-3 flex items-center justify-center gap-2">
+                            <i class="fas fa-chart-area text-sky-500"></i>
+                            <span data-lang-key="calculated_area">হিসাবকৃত ক্ষেত্রফল</span>
+                        </h3>
+                        <div class="text-center mb-6">
+                            <div class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl text-white shadow-lg shadow-green-500/30">
+                                <span class="text-3xl font-bold" id="totalSqFtResult">0</span>
+                                <span class="text-lg" data-lang-key="sq_ft">বর্গফুট</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="result-box">
+                                <h4 class="font-bold text-sky-800 mb-4 text-center flex items-center justify-center gap-2">
+                                    <i class="fas fa-ruler text-sky-500"></i>
+                                    <span data-lang-key="bigha_katha_system">বিঘা-কাঠা পদ্ধতি</span>
+                                </h4>
+                                <div id="landCalcBigha" class="text-center text-lg space-y-2"></div>
+                            </div>
+                            <div class="result-box green">
+                                <h4 class="font-bold text-green-800 mb-4 text-center flex items-center justify-center gap-2">
+                                    <i class="fas fa-ruler-combined text-green-500"></i>
+                                    <span data-lang-key="kani_gonda_system">কানি-গন্ডা পদ্ধতি</span>
+                                </h4>
+                                <div id="landCalcKani" class="text-center text-lg space-y-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page: Calculator -->
+            <div id="calculatorPage" class="page p-4">
+                <div class="pro-card p-6 md:p-8 max-w-md mx-auto">
+                    <div class="card-header">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-calculator text-2xl"></i>
+                            <h1 class="text-2xl md:text-3xl font-bold relative z-10" data-lang-key="calculator_title">ক্যালকুলেটর</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 mb-6 shadow-inner">
+                        <div class="text-right text-4xl font-mono text-white break-words" id="calculatorDisplay">0</div>
+                    </div>
+                    
+                    <div class="grid grid-cols-4 gap-3" id="calculatorButtons">
+                        <button class="calc-btn clear col-span-2" data-key="C">C</button>
+                        <button class="calc-btn" data-key="DEL">DEL</button>
+                        <button class="calc-btn operator" data-key="/">÷</button>
+                        <button class="calc-btn" data-key="7">7</button>
+                        <button class="calc-btn" data-key="8">8</button>
+                        <button class="calc-btn" data-key="9">9</button>
+                        <button class="calc-btn operator" data-key="*">×</button>
+                        <button class="calc-btn" data-key="4">4</button>
+                        <button class="calc-btn" data-key="5">5</button>
+                        <button class="calc-btn" data-key="6">6</button>
+                        <button class="calc-btn operator" data-key="-">-</button>
+                        <button class="calc-btn" data-key="1">1</button>
+                        <button class="calc-btn" data-key="2">2</button>
+                        <button class="calc-btn" data-key="3">3</button>
+                        <button class="calc-btn operator" data-key="+">+</button>
+                        <button class="calc-btn col-span-2" data-key="0">0</button>
+                        <button class="calc-btn" data-key=".">.</button>
+                        <button class="calc-btn equals" data-key="=">=</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: Notepad -->
+            <div id="notebookPage" class="page p-4 max-w-6xl mx-auto">
+                <div class="pro-card p-6 md:p-8">
+                    <div class="card-header">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-book text-2xl"></i>
+                            <h1 class="text-2xl md:text-3xl font-bold relative z-10" data-lang-key="notebook_title">ডিজিটাল নোটপ্যাড</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2">
+                            <div class="editor-toolbar flex items-center gap-2 mb-4 p-3 bg-gray-50 rounded-xl flex-wrap border border-gray-200">
+                                <button data-command="bold" title="Bold"><i class="fas fa-bold"></i></button>
+                                <button data-command="italic" title="Italic"><i class="fas fa-italic"></i></button>
+                                <button data-command="underline" title="Underline"><i class="fas fa-underline"></i></button>
+                                <div class="w-px h-6 bg-gray-300 mx-1"></div>
+                                <button data-command="insertUnorderedList" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                                <button data-command="insertOrderedList" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                                <div class="w-px h-6 bg-gray-300 mx-1"></div>
+                                <button data-command="undo" title="Undo"><i class="fas fa-undo"></i></button>
+                                <button data-command="redo" title="Redo"><i class="fas fa-redo"></i></button>
+                            </div>
+                            
+                            <div id="noteEditor" contenteditable="true" class="bg-white p-6 min-h-[350px] border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-100 focus:border-sky-400 transition shadow-inner"></div>
+                            
+                            <div class="mt-6 flex gap-4">
+                                <button id="saveNoteBtn" class="flex-1 btn-primary py-3 flex items-center justify-center gap-3">
+                                    <i class="fas fa-save"></i>
+                                    <span data-lang-key="save_note">নোট সেভ করুন</span>
+                                </button>
+                                <button id="newNoteBtn" class="flex-1 btn-secondary py-3 flex items-center justify-center gap-3">
+                                    <i class="fas fa-plus"></i>
+                                    <span data-lang-key="new_note">নতুন নোট</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-bold text-lg text-sky-800 mb-4 flex items-center gap-2">
+                                <i class="fas fa-history text-sky-500"></i>
+                                <span data-lang-key="note_history">সেভ করা নোট</span>
+                            </h3>
+                            <div id="noteHistory" class="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar pr-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: FAQ -->
+            <div id="faqPage" class="page p-4 max-w-4xl mx-auto">
+                <div class="pro-card p-6 md:p-8">
+                    <div class="card-header">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-question-circle text-2xl"></i>
+                            <h1 class="text-2xl md:text-3xl font-bold relative z-10" data-lang-key="faq_title">সাধারণ প্রশ্নোত্তর (FAQ)</h1>
+                        </div>
+                    </div>
+                    <div id="faqContent" class="space-y-4"></div>
+                </div>
+            </div>
+            
+            <!-- Page: Info -->
+            <div id="infoPage" class="page p-4 max-w-4xl mx-auto">
+                <div class="pro-card p-6 md:p-8">
+                    <div class="card-header">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-info-circle text-2xl"></i>
+                            <h1 class="text-2xl md:text-3xl font-bold relative z-10" data-lang-key="info_title">সার্ভেয়ারের প্রয়োজনীয় তথ্য</h1>
+                        </div>
+                    </div>
+                    <div id="infoContent" class="space-y-4"></div>
+                </div>
+            </div>
+            
+            <!-- Page: Formula -->
+            <div id="formulaPage" class="page p-4 max-w-5xl mx-auto">
+                <div class="pro-card p-6 md:p-8">
+                    <div class="card-header">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-draw-polygon text-2xl"></i>
+                            <h1 class="text-2xl md:text-3xl font-bold relative z-10" data-lang-key="formula_title">প্রয়োজনীয় জ্যামিতিক সূত্রাবলী</h1>
+                        </div>
+                    </div>
+                    <div id="formulaContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <footer class="app-footer no-print mx-4 mt-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-map-marked-alt text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-lg" style="font-family: var(--font-en);">Arif Digital Survey</h3>
+                            <p class="text-white/60 text-sm">Professional Land Measurement Solution</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center gap-6 text-sm text-white/60 mb-4">
+                        <a href="tel:01886868239" class="flex items-center gap-2 hover:text-white transition">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>01886868239</span>
+                        </a>
+                        <span class="text-white/30">|</span>
+                        <a href="mailto:mdarifulhasanctg@gmail.com" class="flex items-center gap-2 hover:text-white transition">
+                            <i class="fas fa-envelope"></i>
+                            <span>mdarifulhasanctg@gmail.com</span>
+                        </a>
+                    </div>
+                    <p class="text-white/40 text-xs">© 2024 Arif Digital Survey. All Rights Reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Toast Notification Element -->
+    <div id="toast"></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- STATE, DATA & ELEMENTS ---
+        let currentLang = 'bn';
+        let activeNoteId = null;
+        const allElements = {
+            // Lock Screen
+            lockScreen: document.getElementById('lockScreen'),
+            mainApp: document.getElementById('mainApp'),
+            passwordInput: document.getElementById('passwordInput'),
+            unlockButton: document.getElementById('unlockButton'),
+            errorMessage: document.getElementById('errorMessage'),
+            // General
+            openMenuBtn: document.getElementById('openMenuBtn'),
+            closeMenuBtn: document.getElementById('closeMenuBtn'),
+            sideMenu: document.getElementById('sideMenu'),
+            menuOverlay: document.getElementById('menuOverlay'),
+            menuItems: document.querySelectorAll('.menu-item'),
+            langBn: document.getElementById('langBn'),
+            langEn: document.getElementById('langEn'),
+            pages: document.querySelectorAll('.page'),
+            toast: document.getElementById('toast'),
+            // Converter
+            fromValue: document.getElementById('fromValue'),
+            fromUnit: document.getElementById('fromUnit'),
+            toValue: document.getElementById('toValue'),
+            toUnit: document.getElementById('toUnit'),
+            swapButton: document.getElementById('swapButton'),
+            surveyorResult: document.getElementById('surveyorResult'),
+            bighaKathaBreakdown: document.getElementById('bighaKathaBreakdown'),
+            kaniGondaBreakdown: document.getElementById('kaniGondaBreakdown'),
+            printBtn: document.getElementById('printBtn'),
+            copyToValue: document.getElementById('copyToValue'),
+            copyBigha: document.getElementById('copyBigha'),
+            copyKani: document.getElementById('copyKani'),
+            // Land Calculator
+            landShapeTabs: document.getElementById('landShapeTabs'),
+            calculateAreaBtn: document.getElementById('calculateAreaBtn'),
+            landCalcResult: document.getElementById('landCalcResult'),
+            totalSqFtResult: document.getElementById('totalSqFtResult'),
+            landCalcBigha: document.getElementById('landCalcBigha'),
+            landCalcKani: document.getElementById('landCalcKani'),
+            // Calculator
+            calculatorDisplay: document.getElementById('calculatorDisplay'),
+            calculatorButtons: document.getElementById('calculatorButtons'),
+            // Notepad
+            noteEditor: document.getElementById('noteEditor'),
+            editorToolbar: document.querySelector('.editor-toolbar'),
+            saveNoteBtn: document.getElementById('saveNoteBtn'),
+            newNoteBtn: document.getElementById('newNoteBtn'),
+            noteHistory: document.getElementById('noteHistory'),
+            // Content Pages
+            faqContent: document.getElementById('faqContent'),
+            infoContent: document.getElementById('infoContent'),
+            formulaContent: document.getElementById('formulaContent'),
+        };
+        
+        const conversionFactors = {
+            'Sq. Ft.': 1, 'Sq. M.': 10.7639, 'Shotok': 435.6, 'Acre': 43560,
+            'Bigha': 14400, 'Katha': 720, 'Chotak': 45, 'Gonda': 864, 'Kani': 17280, 'Hectare': 107639
+        };
+        
+        const contentData = {
+            bn: {
+                units: { 'Sq. Ft.': 'বর্গফুট', 'Sq. M.': 'বর্গমিটার', 'Shotok': 'শতাংশ', 'Acre': 'একর', 'Bigha': 'বিঘা', 'Katha': 'কাঠা', 'Chotak': 'ছটাক', 'Gonda': 'গন্ডা', 'Kani': 'কানি', 'Hectare': 'হেক্টর' },
+                langKeys: {
+                    menu_title: 'মেনু', menu_converter: 'কনভার্টার', menu_land_calculator: 'ভূমি ক্যালকুলেটর', menu_calculator: 'ক্যালকুলেটর', menu_faq: 'সাধারণ প্রশ্নোত্তর', menu_info: 'সার্ভেয়ারের তথ্য', menu_formula: 'জ্যামিতিক সূত্র', menu_notebook: 'নোটপ্যাড',
+                    converter_title: 'ভূমি পরিমাপ কনভার্টার', from_unit: 'যে একক থেকে', to_unit: 'যে এককে', surveyor_title: 'সার্ভেয়ারের বিস্তারিত ফলাফল', bigha_katha_system: 'বিঘা-কাঠা পদ্ধতি', kani_gonda_system: 'কানি-গন্ডা পদ্ধতি',
+                    land_calculator_title: 'ভূমি ক্যালকুলেটর', shape_rectangle: 'আয়তক্ষেত্র', shape_triangle: 'ত্রিভুজ', shape_circle: 'বৃত্ত/পুকুর', shape_trapezoid: 'ট্রাপিজিয়াম',
+                    length_ft: 'দৈর্ঘ্য (ফুট)', width_ft: 'প্রস্থ (ফুট)', side_a_ft: '১ম বাহু (ফুট)', side_b_ft: '২য় বাহু (ফুট)', side_c_ft: '৩য় বাহু (ফুট)', radius_ft: 'ব্যাসার্ধ (ফুট)',
+                    parallel_a_ft: 'সমান্তরাল বাহু ১ (ফুট)', parallel_b_ft: 'সমান্তরাল বাহু ২ (ফুট)', height_ft: 'উচ্চতা (ফুট)',
+                    triangle_desc: 'হেরনের সূত্র অনুযায়ী ৩ বাহুর মাপ দিন', calculate_area: 'ক্ষেত্রফল হিসাব করুন', calculated_area: 'হিসাবকৃত ক্ষেত্রফল', sq_ft: 'বর্গফুট',
+                    calculator_title: 'ক্যালকুলেটর',
+                    notebook_title: 'ডিজিটাল নোটপ্যাড', save_note: 'নোট সেভ করুন', new_note: 'নতুন নোট', note_history: 'সেভ করা নোট', delete_confirm: 'আপনি কি এই নোটটি মুছে ফেলতে চান?',
+                    faq_title: 'সাধারণ প্রশ্নোত্তর (FAQ)', info_title: 'সার্ভেয়ারের প্রয়োজনীয় তথ্য', formula_title: 'প্রয়োজনীয় জ্যামিতিক সূত্রাবলী',
+                    print_results: 'ফলাফল প্রিন্ট করুন', copied: 'কপি হয়েছে!', note_saved: 'নোট সেভ হয়েছে!', note_deleted: 'নোট মুছে ফেলা হয়েছে!',
+                    error_invalid_triangle: 'ত্রিভুজের বাহুগুলো সঠিক নয়।', error_invalid_input: 'অনুগ্রহ করে সঠিক ও সম্পূর্ণ মাপ ইনপুট দিন।',
+                    password_incorrect: 'ভুল পাসওয়ার্ড'
+                },
+                faq: [
+                    { q: 'খতিয়ান ও দলিলের মধ্যে পার্থক্য কী?', a: 'দলিল হলো মালিকানা হস্তান্তরের আইনি প্রমাণ, আর খতিয়ান হলো একটি নির্দিষ্ট এলাকার জমির মালিকানার বিবরণ ও ইতিহাস, যা সরকারিভাবে সংরক্ষিত থাকে।' },
+                    { q: 'জমির সীমানা নিয়ে বিরোধ হলে কী করব?', a: 'প্রথমে স্থানীয়ভাবে আমিন বা সার্ভেয়ার দ্বারা জমি পরিমাপ করুন। সমাধান না হলে, সহকারী কমিশনার (ভূমি) এর কাছে আবেদন করতে পারেন অথবা দেওয়ানি আদালতে মামলা করতে পারেন।' },
+                    { q: '১ বিঘা কত শতাংশ?', a: '১ বিঘা = ৩৩.০৬ শতাংশ (প্রায়)। তবে এটি অঞ্চলভেদে সামান্য ভিন্ন হতে পারে।' },
+                    { q: 'নামজারি কী এবং কেন প্রয়োজন?', a: 'নামজারি হলো জমি ক্রয়ের পর সরকারি রেকর্ডে নতুন মালিকের নাম অন্তর্ভুক্ত করার প্রক্রিয়া। এটি ছাড়া জমির বৈধ মালিকানা প্রতিষ্ঠা হয় না।' }
+                ],
+                info: [
+                    { t: 'খতিয়ানের প্রকারভেদ', d: 'CS (Cadastral Survey), SA (State Acquisition), RS (Revisional Survey), এবং BS (Bangladesh Survey) খতিয়ান সবচেয়ে পরিচিত। প্রত্যেকটি খতিয়ানই একটি নির্দিষ্ট জরিপ সময়ের প্রতিনিধিত্ব করে।' },
+                    { t: 'ভূমি উন্নয়ন কর', d: 'জমির মালিকানাস্বত্ব বজায় রাখার জন্য প্রতি বছর সরকারকে ভূমি উন্নয়ন কর বা খাজনা প্রদান করা বাধ্যতামূলক।' },
+                    { t: 'দাগ নম্বর', d: 'জমির নকশায় প্রতিটি ভূমি খণ্ডকে আলাদাভাবে শনাক্ত করার জন্য যে নম্বর ব্যবহার করা হয়, তাকে দাগ নম্বর বলে। এটি খতিয়ানে উল্লেখ থাকে।' },
+                    { t: 'মৌজা', d: 'ভূমি জরিপের সময় একটি নির্দিষ্ট এলাকাকে যে ইউনিটে ভাগ করা হয়, তাকে মৌজা বলে। প্রতিটি মৌজার একটি স্বতন্ত্র পরিচিতি নম্বর (JL No.) থাকে।' },
+                    { t: 'পর্চা', d: 'জমির মালিকানা, দখল এবং অন্যান্য বিবরণসহ যে সরকারি নথি তৈরি করা হয়, তাকে পর্চা বলে। এটি মূলত খতিয়ানের একটি অনুলিপি।' }
+                ],
+                formula: [
+                    { n: 'আয়তক্ষেত্র', f: 'ক্ষেত্রফল = দৈর্ঘ্য × প্রস্থ', i: 'fa-vector-square' },
+                    { n: 'ত্রিভুজ', f: 'ক্ষেত্রফল = ½ × ভূমি × উচ্চতা', i: 'fa-play' },
+                    { n: 'বিষমবাহু ত্রিভুজ', f: 'হেরনের সূত্র ব্যবহার্য', i: 'fa-draw-polygon' },
+                    { n: 'ট্রাপিজিয়াম', f: '½ × (বাহু১ + বাহু২) × উচ্চতা', i: 'fa-shapes' }
+                ],
+            },
+            en: {
+                units: { 'Sq. Ft.': 'Sq. Ft.', 'Sq. M.': 'Sq. M.', 'Shotok': 'Shotok', 'Acre': 'Acre', 'Bigha': 'Bigha', 'Katha': 'Katha', 'Chotak': 'Chotak', 'Gonda': 'Gonda', 'Kani': 'Kani', 'Hectare': 'Hectare' },
+                langKeys: {
+                    menu_title: 'Menu', menu_converter: 'Converter', menu_land_calculator: 'Land Calculator', menu_calculator: 'Calculator', menu_faq: 'FAQ', menu_info: "Surveyor's Info", menu_formula: 'Geometric Formulas', menu_notebook: 'Notepad',
+                    converter_title: 'Land Measurement Converter', from_unit: 'From', to_unit: 'To', surveyor_title: "Surveyor's Detailed Result", bigha_katha_system: 'Bigha-Katha System', kani_gonda_system: 'Kani-Gonda System',
+                    land_calculator_title: 'Land Area Calculator', shape_rectangle: 'Rectangle', shape_triangle: 'Triangle', shape_circle: 'Circle/Pond', shape_trapezoid: 'Trapezoid',
+                    length_ft: 'Length (ft)', width_ft: 'Width (ft)', side_a_ft: 'Side A (ft)', side_b_ft: 'Side B (ft)', side_c_ft: 'Side C (ft)', radius_ft: 'Radius (ft)',
+                    parallel_a_ft: 'Parallel Side A (ft)', parallel_b_ft: 'Parallel Side B (ft)', height_ft: 'Height (ft)',
+                    triangle_desc: "Using Heron's formula for 3 sides", calculate_area: 'Calculate Area', calculated_area: 'Calculated Area', sq_ft: 'Sq. Ft.',
+                    calculator_title: 'Calculator',
+                    notebook_title: 'Digital Notepad', save_note: 'Save Note', new_note: 'New Note', note_history: 'Saved Notes', delete_confirm: 'Are you sure you want to delete this note?',
+                    faq_title: 'Frequently Asked Questions (FAQ)', info_title: "Surveyor's Essential Info", formula_title: 'Essential Geometric Formulas',
+                    print_results: 'Print Results', copied: 'Copied!', note_saved: 'Note Saved!', note_deleted: 'Note Deleted!',
+                    error_invalid_triangle: 'Invalid triangle sides.', error_invalid_input: 'Please enter valid and complete measurements.',
+                    password_incorrect: 'Incorrect Password'
+                },
+                faq: [
+                    { q: 'What is the difference between a Khatian and a Deed?', a: 'A Deed is legal proof of ownership transfer, while a Khatian is a government-maintained record of land ownership and history for a specific area.' },
+                    { q: 'What to do in a land boundary dispute?', a: 'First, have the land measured by a local surveyor (Amin). If unresolved, you can apply to the Assistant Commissioner (Land) or file a civil suit.' },
+                    { q: 'How many Shotok in 1 Bigha?', a: '1 Bigha = 33.06 Shotok (approximately). This may vary slightly by region.' },
+                    { q: 'What is Namjari and why is it needed?', a: 'Namjari is the process of including the new owner\'s name in government records after purchasing land. Without it, legal ownership is not established.' }
+                ],
+                info: [
+                    { t: 'Types of Khatian', d: 'CS (Cadastral Survey), SA (State Acquisition), RS (Revisional Survey), and BS (Bangladesh Survey) are the most common. Each represents a specific survey period.' },
+                    { t: 'Land Development Tax', d: 'Paying annual Land Development Tax (Khajna) to the government is mandatory to maintain land ownership rights.' },
+                    { t: 'Plot Number (Daag No.)', d: 'The unique number used to identify each parcel of land on a survey map is called the Daag number. It is mentioned in the Khatian.' },
+                    { t: 'Mouza', d: 'A Mouza is a specific land administration unit used during a survey, representing a distinct locality. Each Mouza has a unique Jurisdiction List Number (JL No.).' },
+                    { t: 'Parcha (Record of Rights)', d: 'The official document containing details of land ownership, possession, and other descriptions is called a Parcha. It is essentially a copy of the Khatian.' }
+                ],
+                formula: [
+                    { n: 'Rectangle', f: 'Area = Length × Width', i: 'fa-vector-square' },
+                    { n: 'Triangle', f: 'Area = ½ × Base × Height', i: 'fa-play' },
+                    { n: 'Scalene Triangle', f: "Use Heron's Formula", i: 'fa-draw-polygon' },
+                    { n: 'Trapezoid', f: '½ × (Side1 + Side2) × Height', i: 'fa-shapes' }
+                ],
+            }
+        };
+
+        // --- UTILITY FUNCTIONS ---
+        const showToast = (key) => {
+            const message = contentData[currentLang].langKeys[key] || key;
+            allElements.toast.textContent = message;
+            allElements.toast.classList.add('show');
+            setTimeout(() => {
+                allElements.toast.classList.remove('show');
+            }, 2500);
+        };
+
+        const copyToClipboard = (text, btnElement) => {
+            if (!navigator.clipboard) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('copied');
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('copied');
+                if (btnElement) {
+                    const copyIcon = btnElement.querySelector('.fa-copy');
+                    const checkIcon = btnElement.querySelector('.fa-check');
+                    copyIcon.style.display = 'none';
+                    checkIcon.style.display = 'inline-block';
+                    setTimeout(() => {
+                        copyIcon.style.display = 'inline-block';
+                        checkIcon.style.display = 'none';
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        };
+        
+        // --- AUTHENTICATION ---
+        const unlockApp = () => {
+            allElements.lockScreen.style.display = 'none';
+            allElements.mainApp.classList.remove('hidden');
+            sessionStorage.setItem('surveyorAppUnlocked', 'true');
+        };
+
+        const handleUnlockAttempt = () => {
+            const correctPassword = '2026';
+            if (allElements.passwordInput.value === correctPassword) {
+                unlockApp();
+            } else {
+                allElements.errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${contentData[currentLang].langKeys.password_incorrect}`;
+                allElements.passwordInput.classList.add('shake', 'border-red-500');
+                setTimeout(() => {
+                    allElements.passwordInput.classList.remove('shake', 'border-red-500');
+                    allElements.errorMessage.textContent = '';
+                }, 1000);
+            }
+        };
+
+        // --- NAVIGATION & UI ---
+        const navigateTo = (targetId) => {
+            allElements.pages.forEach(page => page.classList.toggle('active', page.id === targetId));
+            allElements.menuItems.forEach(item => item.classList.toggle('active', item.dataset.target === targetId));
+            allElements.sideMenu.classList.remove('open');
+            allElements.menuOverlay.classList.add('hidden');
+        };
+
+        const populateUnits = () => {
+            const fromUnitValue = allElements.fromUnit.value;
+            const toUnitValue = allElements.toUnit.value;
+            allElements.fromUnit.innerHTML = '';
+            allElements.toUnit.innerHTML = '';
+            const unitTranslations = contentData[currentLang].units;
+            Object.keys(conversionFactors).forEach(unitKey => {
+                const translatedUnit = unitTranslations[unitKey] || unitKey;
+                allElements.fromUnit.add(new Option(translatedUnit, unitKey));
+                allElements.toUnit.add(new Option(translatedUnit, unitKey));
+            });
+            allElements.fromUnit.value = fromUnitValue;
+            allElements.toUnit.value = toUnitValue;
+        };
+
+        const updateLanguage = () => {
+            document.documentElement.lang = currentLang;
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.dataset.langKey;
+                if (contentData[currentLang].langKeys[key]) {
+                    el.textContent = contentData[currentLang].langKeys[key];
+                }
+            });
+            allElements.langBn.classList.toggle('active', currentLang === 'bn');
+            allElements.langEn.classList.toggle('active', currentLang === 'en');
+            populateUnits();
+            renderDynamicContent();
+            renderNoteHistory();
+        };
+        
+        const renderDynamicContent = () => {
+            allElements.faqContent.innerHTML = contentData[currentLang].faq.map(item => `
+                <div class="faq-item">
+                    <div class="faq-question">${item.q}</div>
+                    <div class="faq-answer">${item.a}</div>
+                </div>
+            `).join('');
+            
+            allElements.infoContent.innerHTML = contentData[currentLang].info.map(item => `
+                <div class="info-card pl-6">
+                    <h3 class="font-bold text-sky-800 text-lg mb-2">${item.t}</h3>
+                    <p class="text-gray-600 leading-relaxed">${item.d}</p>
+                </div>
+            `).join('');
+            
+            allElements.formulaContent.innerHTML = contentData[currentLang].formula.map(item => `
+                <div class="formula-card">
+                    <div class="icon-wrapper">
+                        <i class="fas ${item.i}"></i>
+                    </div>
+                    <h3 class="font-bold text-sky-800 text-lg mb-2">${item.n}</h3>
+                    <p class="text-gray-600 text-sm">${item.f}</p>
+                </div>
+            `).join('');
+        };
+
+        // --- CONVERTER LOGIC ---
+        const convert = () => {
+            const fromValue = parseFloat(allElements.fromValue.value);
+            if (isNaN(fromValue) || fromValue < 0) {
+                allElements.toValue.value = '';
+                allElements.surveyorResult.classList.add('hidden');
+                return;
+            }
+            const valueInBase = fromValue * conversionFactors[allElements.fromUnit.value];
+            const result = valueInBase / conversionFactors[allElements.toUnit.value];
+            allElements.toValue.value = parseFloat(result.toFixed(6));
+            displaySurveyorResult(valueInBase, allElements.bighaKathaBreakdown, allElements.kaniGondaBreakdown);
+            allElements.surveyorResult.classList.remove('hidden');
+        };
+        
+        const displaySurveyorResult = (totalSqFt, bighaEl, kaniEl) => {
+            if (isNaN(totalSqFt) || totalSqFt < 0) return;
+            let r = totalSqFt;
+            const b = Math.floor(r / 14400); r %= 14400;
+            const k = Math.floor(r / 720); r %= 720;
+            const c = Math.floor(r / 45); r %= 45;
+            
+            bighaEl.innerHTML = `
+                <p class="flex items-center justify-center gap-2"><span class="font-bold text-sky-700 text-xl">${b}</span> ${currentLang === 'bn' ? 'বিঘা' : 'Bigha'}</p>
+                <p class="flex items-center justify-center gap-2"><span class="font-bold text-sky-700 text-xl">${k}</span> ${currentLang === 'bn' ? 'কাঠা' : 'Katha'}</p>
+                <p class="flex items-center justify-center gap-2"><span class="font-bold text-sky-700 text-xl">${c}</span> ${currentLang === 'bn' ? 'ছটাক' : 'Chotak'}</p>
+                <p class="text-sm text-gray-500 mt-1"><span class="font-semibold">${r.toFixed(2)}</span> ${currentLang === 'bn' ? 'বর্গফুট' : 'Sq. Ft.'}</p>
+            `;
+            
+            r = totalSqFt;
+            const kn = Math.floor(r / 17280); r %= 17280;
+            const g = Math.floor(r / 864); r %= 864;
+            
+            kaniEl.innerHTML = `
+                <p class="flex items-center justify-center gap-2"><span class="font-bold text-green-700 text-xl">${kn}</span> ${currentLang === 'bn' ? 'কানি' : 'Kani'}</p>
+                <p class="flex items-center justify-center gap-2"><span class="font-bold text-green-700 text-xl">${g}</span> ${currentLang === 'bn' ? 'গন্ডা' : 'Gonda'}</p>
+                <p class="text-sm text-gray-500 mt-1">${r.toFixed(2)} ${currentLang === 'bn' ? 'বর্গফুট অবশিষ্ট' : 'Sq. Ft. remaining'}</p>
+            `;
+        };
+
+        // --- LAND CALCULATOR LOGIC ---
+        const initLandCalculator = () => {
+            allElements.landShapeTabs.addEventListener('click', e => {
+                const tabBtn = e.target.closest('.tab-btn');
+                if (!tabBtn) return;
+                document.querySelectorAll('#landShapeTabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+                tabBtn.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.getElementById(`content-${tabBtn.dataset.shape}`).classList.add('active');
+                allElements.landCalcResult.classList.add('hidden');
+            });
+
+            allElements.calculateAreaBtn.addEventListener('click', () => {
+                const activeShape = document.querySelector('#landShapeTabs .tab-btn.active').dataset.shape;
+                let area = 0;
+                let error = false;
+                
+                if (activeShape === 'rectangle') {
+                    const l = parseFloat(document.getElementById('rectLength').value);
+                    const w = parseFloat(document.getElementById('rectWidth').value);
+                    if (isNaN(l) || isNaN(w) || l <= 0 || w <= 0) error = true;
+                    else area = l * w;
+                } else if (activeShape === 'triangle') {
+                    const a = parseFloat(document.getElementById('triA').value);
+                    const b = parseFloat(document.getElementById('triB').value);
+                    const c = parseFloat(document.getElementById('triC').value);
+                    if (isNaN(a) || isNaN(b) || isNaN(c) || a <= 0 || b <= 0 || c <= 0) {
+                        error = true;
+                    } else if (a + b <= c || a + c <= b || b + c <= a) {
+                        error = true;
+                        showToast('error_invalid_triangle');
+                    } else {
+                        const s = (a + b + c) / 2;
+                        area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+                    }
+                } else if (activeShape === 'circle') {
+                    const r = parseFloat(document.getElementById('circleRadius').value);
+                    if (isNaN(r) || r <= 0) error = true;
+                    else area = Math.PI * r * r;
+                } else if (activeShape === 'trapezoid') {
+                    const a = parseFloat(document.getElementById('trapA').value);
+                    const b = parseFloat(document.getElementById('trapB').value);
+                    const h = parseFloat(document.getElementById('trapH').value);
+                    if (isNaN(a) || isNaN(b) || isNaN(h) || a <= 0 || b <= 0 || h <= 0) error = true;
+                    else area = 0.5 * (a + b) * h;
+                }
+                
+                if (error || isNaN(area)) {
+                    allElements.landCalcResult.classList.add('hidden');
+                    if (!document.getElementById('toast').classList.contains('show')) {
+                        showToast('error_invalid_input');
+                    }
+                } else {
+                    allElements.totalSqFtResult.textContent = area.toFixed(2);
+                    displaySurveyorResult(area, allElements.landCalcBigha, allElements.landCalcKani);
+                    allElements.landCalcResult.classList.remove('hidden');
+                }
+            });
+        };
+
+        // --- CALCULATOR LOGIC ---
+        let calcState = { displayValue: '0', firstOperand: null, waitingForSecondOperand: false, operator: null };
+        
+        const updateCalculatorDisplay = () => {
+            allElements.calculatorDisplay.textContent = calcState.displayValue;
+        };
+        
+        const handleCalculatorInput = (key) => {
+            if (/\d/.test(key)) {
+                if (calcState.waitingForSecondOperand) {
+                    calcState.displayValue = key;
+                    calcState.waitingForSecondOperand = false;
+                } else {
+                    calcState.displayValue = calcState.displayValue === '0' ? key : calcState.displayValue + key;
+                }
+            } else if (key === '.') {
+                if (!calcState.displayValue.includes('.')) {
+                    calcState.displayValue += '.';
+                }
+            } else if (['+', '-', '*', '/'].includes(key)) {
+                if (calcState.operator && calcState.waitingForSecondOperand) {
+                    calcState.operator = key;
+                    return;
+                }
+                if (calcState.firstOperand == null) {
+                    calcState.firstOperand = parseFloat(calcState.displayValue);
+                } else if (calcState.operator) {
+                    const result = performCalculation[calcState.operator](calcState.firstOperand, parseFloat(calcState.displayValue));
+                    calcState.displayValue = `${parseFloat(result.toFixed(7))}`;
+                    calcState.firstOperand = result;
+                }
+                calcState.waitingForSecondOperand = true;
+                calcState.operator = key;
+            } else if (key === '=') {
+                if (calcState.operator && !calcState.waitingForSecondOperand) {
+                    const result = performCalculation[calcState.operator](calcState.firstOperand, parseFloat(calcState.displayValue));
+                    calcState.displayValue = `${parseFloat(result.toFixed(7))}`;
+                    calcState.firstOperand = null;
+                    calcState.operator = null;
+                    calcState.waitingForSecondOperand = false;
+                }
+            } else if (key === 'C') {
+                calcState = { displayValue: '0', firstOperand: null, waitingForSecondOperand: false, operator: null };
+            } else if (key === 'DEL') {
+                calcState.displayValue = calcState.displayValue.slice(0, -1) || '0';
+            }
+            updateCalculatorDisplay();
+        };
+        
+        const performCalculation = {
+            '/': (a, b) => a / b,
+            '*': (a, b) => a * b,
+            '+': (a, b) => a + b,
+            '-': (a, b) => a - b
+        };
+
+        // --- NOTEPAD LOGIC ---
+        const getNotes = () => JSON.parse(localStorage.getItem('surveyorNotesV4') || '[]');
+        const saveNotes = (notes) => localStorage.setItem('surveyorNotesV4', JSON.stringify(notes));
+        
+        const renderNoteHistory = () => {
+            const notes = getNotes();
+            allElements.noteHistory.innerHTML = notes.sort((a, b) => b.id - a.id).map(note => {
+                const title = note.content.replace(/<[^>]+>/g, '').substring(0, 40) || (currentLang === 'bn' ? 'শিরোনামহীন নোট' : 'Untitled Note');
+                return `
+                    <div class="note-item" data-note-id="${note.id}">
+                        <span class="truncate pr-2 text-gray-700">${title}</span>
+                        <button class="text-red-400 hover:text-red-600 delete-note-btn p-2 hover:bg-red-50 rounded-lg transition">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        };
+        
+        const handleSaveNote = () => {
+            const content = allElements.noteEditor.innerHTML;
+            if (content.trim() === '') return;
+            let notes = getNotes();
+            if (activeNoteId) {
+                const note = notes.find(n => n.id === activeNoteId);
+                if (note) note.content = content;
+            } else {
+                const newNote = { id: Date.now(), content: content };
+                notes.push(newNote);
+                activeNoteId = newNote.id;
+            }
+            saveNotes(notes);
+            renderNoteHistory();
+            showToast('note_saved');
+        };
+        
+        const handleNewNote = () => {
+            activeNoteId = null;
+            allElements.noteEditor.innerHTML = '';
+            allElements.noteEditor.focus();
+        };
+
+        // --- EVENT LISTENERS ---
+        allElements.unlockButton.addEventListener('click', handleUnlockAttempt);
+        allElements.passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleUnlockAttempt();
+        });
+        
+        allElements.openMenuBtn.addEventListener('click', () => {
+            allElements.sideMenu.classList.add('open');
+            allElements.menuOverlay.classList.remove('hidden');
+        });
+        
+        allElements.closeMenuBtn.addEventListener('click', () => {
+            allElements.sideMenu.classList.remove('open');
+            allElements.menuOverlay.classList.add('hidden');
+        });
+        
+        allElements.menuOverlay.addEventListener('click', () => {
+            allElements.sideMenu.classList.remove('open');
+            allElements.menuOverlay.classList.add('hidden');
+        });
+        
+        allElements.menuItems.forEach(item => item.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateTo(item.dataset.target);
+        }));
+        
+        allElements.langBn.addEventListener('click', () => { currentLang = 'bn'; updateLanguage(); convert(); });
+        allElements.langEn.addEventListener('click', () => { currentLang = 'en'; updateLanguage(); convert(); });
+        
+        ['input', 'change'].forEach(evt => {
+            ['fromValue', 'fromUnit', 'toUnit'].forEach(id => allElements[id].addEventListener(evt, convert));
+        });
+        
+        allElements.swapButton.addEventListener('click', () => {
+            [allElements.fromUnit.value, allElements.toUnit.value] = [allElements.toUnit.value, allElements.fromUnit.value];
+            convert();
+        });
+        
+        allElements.printBtn.addEventListener('click', () => {
+            // Set print date/time
+            const now = new Date();
+            const dateTimeStr = now.toLocaleString('bn-BD', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            const printDateEl = document.getElementById('printDateTime');
+            if (printDateEl) {
+                printDateEl.textContent = `তারিখ: ${dateTimeStr}`;
+            }
+            window.print();
+        });
+        allElements.copyToValue.addEventListener('click', (e) => copyToClipboard(allElements.toValue.value, e.currentTarget));
+        allElements.copyBigha.addEventListener('click', (e) => copyToClipboard(allElements.bighaKathaBreakdown.innerText, e.currentTarget));
+        allElements.copyKani.addEventListener('click', (e) => copyToClipboard(allElements.kaniGondaBreakdown.innerText, e.currentTarget));
+        
+        allElements.calculatorButtons.addEventListener('click', (e) => {
+            if (e.target.matches('button')) handleCalculatorInput(e.target.dataset.key);
+        });
+        
+        allElements.saveNoteBtn.addEventListener('click', handleSaveNote);
+        allElements.newNoteBtn.addEventListener('click', handleNewNote);
+        
+        allElements.editorToolbar.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (btn && btn.dataset.command) {
+                e.preventDefault();
+                document.execCommand(btn.dataset.command, false, null);
+                allElements.noteEditor.focus();
+            }
+        });
+        
+        allElements.noteHistory.addEventListener('click', (e) => {
+            const noteEl = e.target.closest('[data-note-id]');
+            if (!noteEl) return;
+            const noteId = Number(noteEl.dataset.noteId);
+            if (e.target.closest('.delete-note-btn')) {
+                if (confirm(contentData[currentLang].langKeys.delete_confirm)) {
+                    let notes = getNotes();
+                    notes = notes.filter(n => n.id !== noteId);
+                    saveNotes(notes);
+                    renderNoteHistory();
+                    if (activeNoteId === noteId) handleNewNote();
+                    showToast('note_deleted');
+                }
+            } else {
+                const note = getNotes().find(n => n.id === noteId);
+                if (note) {
+                    activeNoteId = note.id;
+                    allElements.noteEditor.innerHTML = note.content;
+                }
+            }
+        });
+
+        // --- INITIALIZATION ---
+        const init = () => {
+            if (sessionStorage.getItem('surveyorAppUnlocked') === 'true') {
+                unlockApp();
+            } else {
+                allElements.lockScreen.style.display = 'flex';
+                allElements.mainApp.classList.add('hidden');
+            }
+            allElements.fromUnit.value = 'Acre';
+            allElements.toUnit.value = 'Bigha';
+            updateLanguage();
+            convert();
+            initLandCalculator();
+            updateCalculatorDisplay();
+            renderNoteHistory();
+            navigateTo('converterPage');
+        };
+        
+        init();
+    });
+    </script>
+</body>
+</html>
